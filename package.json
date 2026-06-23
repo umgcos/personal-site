@@ -19,10 +19,12 @@
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "gray-matter": "^4.0.3",
+    "jose": "^6.0.11",
     "lucide-react": "^0.469.0",
     "next": "^15.3.3",
     "next-auth": "^5.0.0-beta.25",
-    "next-mdx-remote": "^5.0.0",
+    "next-mdx-remote": "^6.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "recharts": "^2.15.3",
@@ -30,9 +32,7 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.0",
     "shiki": "^3.4.2",
-    "tailwind-merge": "^3.3.0",
-    "gray-matter": "^4.0.3",
-    "jose": "^6.0.11"
+    "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
