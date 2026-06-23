@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Skill {
+  id        String   @id @default(cuid())
+  name      String
+  category  String
+  level     Int      @default(0)
+  icon      String?
+  parentId  String?
+  parent    Skill?   @relation("SkillTree", fields: [parentId], references: [id])
+  children  Skill[]  @relation("SkillTree")
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  content     String?
+  coverImage  String?
+  techStack   String[]
+  githubUrl   String?
+  liveUrl     String?
+  featured    Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  title       String
+  competition String
+  category    String
+  level       String
+  award       String
+  rank        Int?
+  date        DateTime
+  location    String?
+  description String?
+  image       String?
+  year        Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([competition])
+  @@index([year])
+}
+
+model BlogPost {
+  id         String   @id @default(cuid())
+  title      String
+  slug       String   @unique
+  content    String
+  excerpt    String?
+  coverImage String?
+  tags       String[]
+  published  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([published, createdAt(sort: Desc)])
+  @@index([slug])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  content   String
+  avatar    String?
+  approved  Boolean  @default(false)
+  parentId  String?
+  parent    Message? @relation("Replies", fields: [parentId], references: [id])
+  replies   Message[] @relation("Replies")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([approved, createdAt(sort: Desc)])
+}
+
+model Visit {
+  id        String   @id @default(cuid())
+  path      String
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([path, createdAt])
+}
+
+model DailyStats {
+  id        String   @id @default(cuid())
+  date      DateTime @unique @db.Date
+  pageViews Int      @default(0)
+  visitors  Int      @default(0)
+  topPages  Json?
+  createdAt DateTime @default(now())
+}
+
+model ExternalProfile {
+  id        String   @id @default(cuid())
+  platform  String
+  username  String
+  data      Json
+  syncedAt  DateTime @default(now())
+
+  @@unique([platform, username])
+}
+
+model SiteConfig {
+  id    String @id @default(cuid())
+  key   String @unique
+  value Json
+}
