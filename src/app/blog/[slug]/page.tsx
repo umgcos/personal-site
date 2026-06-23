@@ -22,9 +22,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   // Simple markdown-like rendering (convert newlines to paragraphs)
   const contentHtml = post.content
-    .split('
-
-')
+    .split('\n\n')
     .map(p => p.trim())
     .filter(p => p)
     .map(p => {
