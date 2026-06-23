@@ -22,6 +22,9 @@
 
 ---
 
+<details>
+<summary>🇬🇧 <b>English</b></summary>
+
 ## Highlights
 
 - **ACM Competition Showcase** — Track and display ACM-ICPC, Lanqiao Cup, and other contest achievements with ranks, medals, and detailed records
@@ -209,3 +212,200 @@ This site is designed to showcase competitive programming achievements:
 ## License
 
 MIT
+
+</details>
+
+---
+
+<details>
+<summary>🇨🇳 <b>中文</b></summary>
+
+## 项目亮点
+
+- **ACM 竞赛展示** — 展示 ACM-ICPC、蓝桥杯等竞赛成绩，包含排名、奖牌和详细记录
+- **MDX 博客系统** — Markdown 写作，支持代码高亮、标签分类、全文搜索和后台管理
+- **后台管理** — 全内容 CRUD：博文、项目、成就、技能树、留言板审核、站点统计
+- **Playground** — 实时同步 GitHub 贡献、LeetCode 统计和 Codeforces 评分
+- **交互式技能树** — 可视化技能进度，涵盖语言、框架、工具和计算机基础
+- **留言板** — 访客留言 + 管理员审核 + 回复功能
+
+## 技术栈
+
+| 层级 | 技术 |
+|------|------|
+| 框架 | Next.js 15 (App Router, RSC, Server Actions) |
+| 语言 | TypeScript 5 |
+| 样式 | TailwindCSS 4 |
+| 数据库 | PostgreSQL (Neon 无服务器) |
+| ORM | Prisma 6 |
+| 认证 | Custom JWT (jose) |
+| 博客 | MDX + rehype-pretty-code + Shiki |
+| 图表 | Recharts |
+| 图标 | Lucide React |
+
+## 快速开始
+
+### 环境要求
+
+- Node.js 18+
+- PostgreSQL 数据库（推荐 [Neon](https://neon.tech)，有免费颕）
+
+### 安装
+
+```bash
+git clone https://github.com/YOUR_USERNAME/personal-site.git
+cd personal-site
+npm install
+```
+
+### 环境变量
+
+```bash
+cp .env.example .env.local
+```
+
+编辑 `.env.local` 填入你的值，详见 [.env.example](./.env.example) 中的注释说明。
+
+| 变量 | 必须 | 说明 |
+|------|------|------|
+| `DATABASE_URL` | 是 | Neon PostgreSQL 连接字符串 |
+| `NEXTAUTH_SECRET` | 是 | JWT 签名密钥（`openssl rand -base64 32` 生成）|
+| `NEXTAUTH_URL` | 是 | 站点 URL（开发环境为 `http://localhost:3000`）|
+| `ADMIN_EMAIL` | 是 | 管理员邮箱 |
+| `ADMIN_PASSWORD` | 是 | 管理员密码 |
+| `GITHUB_TOKEN` | 否 | GitHub Token，用于活动同步 |
+| `GITHUB_USERNAME` | 否 | GitHub 用户名 |
+| `LEETCODE_USERNAME` | 否 | LeetCode 用户名 |
+| `CODEFORCES_USERNAME` | 否 | Codeforces ID |
+
+### 数据库初始化
+
+```bash
+# 推送 Schema 到数据库
+npx prisma db push
+
+# 生成 Prisma Client
+npx prisma generate
+
+# 种子数据（管理员 + 示例数据）
+npm run db:seed
+
+# （可选）将 MDX 博客迁移到数据库
+npm run db:migrate-blog
+```
+
+### 启动开发
+
+```bash
+npm run dev
+```
+
+打开 [http://localhost:3000](http://localhost:3000) — 后台管理在 [/admin](http://localhost:3000/admin)。
+
+## Neon 数据库配置
+
+1. 在 [neon.tech](https://neon.tech) 注册免费账号
+2. 创建项目，复制连接字符串
+3. 粘贴到 `.env.local` 的 `DATABASE_URL` 中：
+   ```
+   DATABASE_URL="postgresql://user:password@ep-xxx.pooler.us-east-1.aws.neon.tech/dbname?sslmode=require"
+   ```
+4. 执行 `npx prisma db push` 创建表
+5. 执行 `npm run db:seed` 初始化数据
+
+> Neon 提供 0.5 GB 免费存储，足够个人项目使用。
+
+## 部署到 Vercel
+
+1. 推送代码到 GitHub
+2. 在 [vercel.com](https://vercel.com) 导入仓库
+3. 在 Vercel 控制台设置环境变量（与 `.env.local` 相同）
+4. 部署！
+
+> **重要**：部署后请将 Vercel 域名添加到 `NEXTAUTH_URL`。
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/personal-site)
+
+## 项目结构
+
+```
+personal-site/
+├── content/blog/          # MDX 博文
+├── docs/                  # 文档与截图
+├── prisma/
+│   ├── schema.prisma        # 数据库 Schema
+│   ├── seed.ts              # 种子脚本
+│   └── migrate-blog.ts     # MDX 迁移
+├── public/                # 静态资源
+├── src/
+│   ├── app/
+│   │   ├── admin/            # 后台管理
+│   │   ├── api/              # API 路由
+│   │   ├── blog/             # 博客页面
+│   │   ├── achievements/     # 竞赛成就
+│   │   ├── projects/         # 项目展示
+│   │   ├── playground/       # 外部统计
+│   │   ├── guestbook/        # 留言板
+│   │   └── about/            # 个人简介
+│   ├── components/         # 组件
+│   ├── lib/                # 工具与配置
+│   └── middleware.ts        # 认证中间件
+├── .env.example           # 环境变量模板
+├── package.json
+└── tsconfig.json
+```
+
+## 内容管理
+
+### 博客
+
+在 `content/blog/` 中添加 `.mdx` 文件：
+
+```mdx
+---
+title: 博文标题
+date: 2026-06-22
+description: 简要描述。
+tags: [algorithms, cpp]
+---
+
+这里写内容，支持 **Markdown** 和 代码块。
+```
+
+### 后台管理
+
+访问 `/admin` 管理：
+- 博文（增删改查 + 发布开关）
+- 项目（技术栈、链接、置顶）
+- 成就（竞赛记录）
+- 技能树（交互式编辑）
+- 留言板（审核 + 回复）
+- 站点统计（访问量、访客）
+- 外部数据同步（GitHub、LeetCode、Codeforces）
+
+## ACM 竞赛功能
+
+本站专为竞赛选手设计：
+
+- **竞赛时间线** — 按时间顺序展示所有比赛
+- **奖牌展厅** — 可视化展示奖项等级和排名
+- **分类筛选** — 按 ACM-ICPC、蓝桥杯、CCPC 等分类查看
+- **详细记录** — 地点、年份、团队/个人、描述
+
+## 可用命令
+
+| 命令 | 说明 |
+|------|------|
+| `npm run dev` | 启动开发服务器 |
+| `npm run build` | 生产构建 |
+| `npm run lint` | 快捷检查 |
+| `npm run db:push` | 推送 Schema 到数据库 |
+| `npm run db:generate` | 生成 Prisma Client |
+| `npm run db:seed` | 种子数据库 |
+| `npm run db:migrate-blog` | 迁移 MDX 博文到数据库 |
+
+## 开源协议
+
+MIT
+
+</details>
