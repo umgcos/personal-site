@@ -30,7 +30,7 @@
 - **ACM Competition Showcase** — Track and display ACM-ICPC, Lanqiao Cup, and other contest achievements with ranks, medals, and detailed records
 - **MDX Blog System** — Write posts in Markdown with code highlighting, tags, full-text search, and admin management
 - **Admin Dashboard** — Full CRUD for all content: blog posts, projects, achievements, skills, guestbook moderation, and site analytics
-- **Playground** — Live sync of GitHub contributions, LeetCode stats, and Codeforces ratings
+- **Playground** — Editable stats dashboard for GitHub, LeetCode, and Codeforces, managed from admin panel
 - **Interactive Skill Tree** — Visual skill progression with categories: languages, frameworks, tools, and CS fundamentals
 - **Guestbook** — Visitor messages with admin moderation and reply threading
 
@@ -186,6 +186,7 @@ Access `/admin` to manage:
 - Skills (interactive tree editor)
 - Guestbook (moderation + replies)
 - Site analytics (page views, visitors)
+- Playground stats (LeetCode / Codeforces / GitHub, editable from admin)
 - External data sync (GitHub, LeetCode, Codeforces)
 
 ## ACM Competition Features
@@ -340,11 +341,16 @@ personal-site/
 ├── src/
 │   ├── app/
 │   │   ├── admin/            # 后台管理
+│   │   │   ├── playground/    # 竞技场数据编辑
+│   │   │   └── ...
 │   │   ├── api/              # API 路由
+│   │   │   ├── admin/
+│   │   │   │   └── playground/ # 竞技场 CRUD
+│   │   │   └── ...
 │   │   ├── blog/             # 博客页面
 │   │   ├── achievements/     # 竞赛成就
 │   │   ├── projects/         # 项目展示
-│   │   ├── playground/       # 外部统计
+│   │   ├── playground/       # 数据看板（服务端组件）
 │   │   ├── guestbook/        # 留言板
 │   │   └── about/            # 个人简介
 │   ├── components/         # 组件
@@ -381,6 +387,7 @@ tags: [algorithms, cpp]
 - 技能树（交互式编辑）
 - 留言板（审核 + 回复）
 - 站点统计（访问量、访客）
+- 竞技场数据（LeetCode / Codeforces / GitHub，后台可编辑）
 - 外部数据同步（GitHub、LeetCode、Codeforces）
 
 ## ACM 竞赛功能

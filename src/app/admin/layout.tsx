@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, FileText, FolderKanban, Trophy, TreePine, MessageSquare, Settings, BarChart3, LogOut } from 'lucide-react'
+import { LayoutDashboard, FileText, FolderKanban, Trophy, TreePine, MessageSquare, Settings, BarChart3, LogOut, Gamepad2 } from 'lucide-react'
 
 const sidebarItems = [
   { label: '仪表盘', href: '/admin', icon: LayoutDashboard },
   { label: '博客管理', href: '/admin/blog', icon: FileText },
   { label: '项目管理', href: '/admin/projects', icon: FolderKanban },
   { label: '竞赛成绩', href: '/admin/achievements', icon: Trophy },
+  { label: '竞技场', href: '/admin/playground', icon: Gamepad2 },
   { label: '技能树', href: '/admin/skills', icon: TreePine },
   { label: '留言审核', href: '/admin/messages', icon: MessageSquare },
   { label: '访问统计', href: '/admin/analytics', icon: BarChart3 },

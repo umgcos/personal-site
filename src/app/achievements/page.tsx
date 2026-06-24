@@ -14,19 +14,23 @@ export default async function AchievementsPage() {
   const lanqiao = achievements.filter(a => a.competition === '蓝桥杯')
 
   return (
-    <section className="max-w-5xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-2">竞赛成绩</h1>
-      <p className="text-muted-foreground mb-8">竞赛经历与获奖记录。</p>
+    <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div className="mb-10 animate-fade-in-up">
+        <h1 className="tracking-tight">竞赛成绩</h1>
+        <p className="text-muted-foreground mt-2">竞赛经历与获奖记录。</p>
+      </div>
 
       {achievements.length === 0 ? (
-        <p className="text-center text-muted-foreground py-12">暂无竞赛记录。</p>
+        <p className="text-center text-muted-foreground py-16 animate-fade-in">暂无竞赛记录。</p>
       ) : (
         <>
-          {/* ACM Section */}
           {acm.length > 0 && (
-            <div className="mb-12">
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <Trophy size={20} /> ACM-ICPC
+            <div className="mb-12 animate-fade-in-up stagger-1">
+              <h2 className="flex items-center gap-2 mb-6 tracking-tight">
+                <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-accent text-primary">
+                  <Trophy size={18} />
+                </span>
+                ACM-ICPC
               </h2>
               <div className="space-y-4">
                 {acm.map(a => <AchievementItem key={a.id} achievement={a} />)}
@@ -34,11 +38,13 @@ export default async function AchievementsPage() {
             </div>
           )}
 
-          {/* Lanqiao Section */}
           {lanqiao.length > 0 && (
-            <div>
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <Medal size={20} /> 蓝桥杯
+            <div className="animate-fade-in-up stagger-2">
+              <h2 className="flex items-center gap-2 mb-6 tracking-tight">
+                <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-accent text-primary">
+                  <Medal size={18} />
+                </span>
+                蓝桥杯
               </h2>
               <div className="space-y-4">
                 {lanqiao.map(a => <AchievementItem key={a.id} achievement={a} />)}
@@ -62,22 +68,22 @@ function AchievementItem({ achievement }: { achievement: any }) {
   }
 
   return (
-    <div className="flex items-start gap-4 p-4 rounded-lg border border-border">
-      <div className="flex-shrink-0 w-2 h-full min-h-[60px] rounded-full bg-primary" />
-      <div className="flex-1">
+    <div className="card p-5 flex items-start gap-4">
+      <div className="flex-shrink-0 w-1.5 h-full min-h-[48px] rounded-full bg-gradient-to-b from-primary to-primary/30" />
+      <div className="flex-1 min-w-0">
         <div className="flex items-center gap-3 mb-1">
-          <h3 className="font-semibold">{achievement.title}</h3>
-          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${awardColors[achievement.award] || 'bg-muted'}`}>
+          <h3 className="font-bold tracking-tight">{achievement.title}</h3>
+          <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${awardColors[achievement.award] || 'bg-muted'}`}>
             {achievement.award}
           </span>
         </div>
         <div className="text-sm text-muted-foreground">
           {achievement.level} | {achievement.category} | {format(new Date(achievement.date), 'yyyy年MM月')}
           {achievement.location && ` | ${achievement.location}`}
-          {achievement.rank && ` | 第 ${achievement.rank} 名`}
+          {achievement.rank && ` | 第${achievement.rank} 名`}
         </div>
         {achievement.description && (
-          <p className="text-sm text-muted-foreground mt-1">{achievement.description}</p>
+          <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{achievement.description}</p>
         )}
       </div>
     </div>

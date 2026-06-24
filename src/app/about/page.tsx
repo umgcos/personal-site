@@ -41,17 +41,21 @@ export default async function AboutPage() {
   }
 
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
+    <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
       {/* Bio */}
-      <div className="flex flex-col md:flex-row items-start gap-8 mb-12">
-        <div className="w-28 h-28 rounded-full bg-muted flex items-center justify-center text-4xl flex-shrink-0">
-          {'{ }'}
-        </div>
+      <div className="flex flex-col md:flex-row items-start gap-8 mb-16 animate-fade-in-up">
+        <img
+          src={`https://github.com/${config.github_username || 'umgcos'}.png`}
+          alt={config.hero_name}
+          width={112}
+          height={112}
+          className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover flex-shrink-0 rotate-2 shadow-lg ring-2 ring-primary/20"
+        />
 
-        <div>
-          <h1 className="text-3xl font-bold mb-2">关于我</h1>
+        <div className="space-y-4">
+          <h1 className="tracking-tight">关于我</h1>
 
-          <p className="text-muted-foreground mb-4">
+          <p className="text-muted-foreground leading-relaxed">
             我是 {config.hero_name} ({config.site_name})，
             {config.school}{config.major}专业学生，{config.role}。
             {config.hero_bio}
@@ -63,7 +67,7 @@ export default async function AboutPage() {
                 href={config.github_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 <Github size={14} /> GitHub
               </a>
@@ -72,7 +76,7 @@ export default async function AboutPage() {
             {config.email && (
               <a
                 href={`mailto:${config.email}`}
-                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 <Mail size={14} /> Email
               </a>
@@ -82,14 +86,17 @@ export default async function AboutPage() {
       </div>
 
       {/* Education */}
-      <div className="mb-12">
-        <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-          <GraduationCap size={20} /> 教育经历
+      <div className="mb-16 animate-fade-in-up stagger-1">
+        <h2 className="flex items-center gap-2 mb-6 tracking-tight">
+          <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-accent text-primary">
+            <GraduationCap size={18} />
+          </span>
+          教育经历
         </h2>
 
-        <div className="p-4 rounded-lg border border-border">
-          <p className="font-semibold">{config.school}</p>
-          <p className="text-sm text-muted-foreground">
+        <div className="card p-5">
+          <p className="font-bold text-lg">{config.school}</p>
+          <p className="text-sm text-muted-foreground mt-1">
             {config.major} | {config.grade}
           </p>
           <p className="text-sm text-muted-foreground mt-1">
@@ -99,29 +106,32 @@ export default async function AboutPage() {
       </div>
 
       {/* Skills */}
-      <div>
-        <h2 className="text-xl font-bold mb-6">技能</h2>
+      <div className="animate-fade-in-up stagger-2">
+        <h2 className="mb-8 tracking-tight">技能</h2>
 
         {Object.keys(grouped).length > 0 ? (
           Object.entries(grouped).map(([category, items]) => (
-            <div key={category} className="mb-8">
-              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+            <div key={category} className="mb-10">
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-4">
                 {categoryLabels[category] || category}
               </h3>
 
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {items.map((skill) => (
                   <div key={skill.id} className="flex items-center gap-3">
-                    <span className="w-24 text-sm">{skill.name}</span>
+                    <span className="w-20 sm:w-24 text-sm font-medium">{skill.name}</span>
 
                     <div className="flex-1 h-2.5 bg-muted rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-primary rounded-full transition-all duration-500"
-                        style={{ width: `${skill.level}%` }}
+                        className="h-full rounded-full transition-all duration-700 ease-out"
+                        style={{
+                          width: `${skill.level}%`,
+                          background: `linear-gradient(90deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 60%, var(--color-accent)))`,
+                        }}
                       />
                     </div>
 
-                    <span className="text-xs text-muted-foreground w-10 text-right">
+                    <span className="text-xs text-muted-foreground w-10 text-right font-mono font-medium">
                       {skill.level}%
                     </span>
                   </div>
@@ -130,7 +140,7 @@ export default async function AboutPage() {
             </div>
           ))
         ) : (
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground py-8 text-center">
             暂无技能数据，请在后台管理中添加。
           </p>
         )}

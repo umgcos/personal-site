@@ -7,10 +7,10 @@ import { Menu, X, Moon, Sun } from 'lucide-react'
 
 const navItems = [
   { label: '博客', href: '/blog' },
-  { label: '项目展示', href: '/projects' },
-  { label: '竞赛成绩', href: '/achievements' },
+  { label: '项目', href: '/projects' },
+  { label: '成绩', href: '/achievements' },
   { label: '竞技场', href: '/playground' },
-  { label: '关于我', href: '/about' },
+  { label: '关于', href: '/about' },
 ]
 
 export function Header() {
@@ -18,40 +18,42 @@ export function Header() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href="/" className="font-bold text-lg">DayDreamerrrrr</Link>
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <Link href="/" className="font-extrabold text-lg tracking-tight hover:text-primary transition-colors">
+          DayDreamerrrrr
+        </Link>
 
         {/* Desktop */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-1">
           {navItems.map(item => (
             <Link key={item.href} href={item.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              className="px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent font-medium">
               {item.label}
             </Link>
           ))}
-          <button onClick={toggle} className="p-2 rounded-lg hover:bg-accent transition-colors">
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          <button onClick={toggle} className="ml-2 p-2 rounded-lg hover:bg-accent transition-colors">
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
           </button>
         </nav>
 
         {/* Mobile */}
-        <button className="md:hidden p-2" onClick={() => setOpen(!open)}>
-          {open ? <X size={20} /> : <Menu size={20} />}
+        <button className="md:hidden p-2 rounded-lg hover:bg-accent" onClick={() => setOpen(!open)}>
+          {open ? <X size={18} /> : <Menu size={18} />}
         </button>
       </div>
 
       {open && (
-        <nav className="md:hidden border-t border-border bg-background px-4 py-3">
+        <nav className="md:hidden border-t border-border/60 bg-background/95 backdrop-blur-xl px-4 py-3">
           {navItems.map(item => (
             <Link key={item.href} href={item.href}
               onClick={() => setOpen(false)}
-              className="block py-2 text-muted-foreground hover:text-foreground transition-colors">
+              className="block py-2.5 px-3 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent font-medium">
               {item.label}
             </Link>
           ))}
           <button onClick={() => { toggle(); setOpen(false) }} className="mt-2 p-2 rounded-lg hover:bg-accent">
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
           </button>
         </nav>
       )}

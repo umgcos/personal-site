@@ -24,27 +24,28 @@ export default async function HomePage() {
       <HeroSection />
 
       {/* Latest Posts */}
-      <section className="max-w-5xl mx-auto px-4 py-12">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold">最新文章</h2>
-          <Link href="/blog" className="text-sm text-muted-foreground hover:text-foreground">
+          <h2 className="tracking-tight">最新文章</h2>
+          <Link href="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium">
             查看全部 &rarr;
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {posts.map(post => (
-            <BlogCard
-              key={post.id}
-              slug={post.slug}
-              title={post.title}
-              date={post.createdAt.toISOString()}
-              description={post.excerpt || ''}
-              tags={post.tags}
-              readingTime={`${Math.ceil((post.content?.length || 0) / 500)} 分钟`}
-            />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {posts.map((post, i) => (
+            <div key={post.id} className="animate-fade-in-up" style={{ animationDelay: `${i * 0.08}s` }}>
+              <BlogCard
+                slug={post.slug}
+                title={post.title}
+                date={post.createdAt.toISOString()}
+                description={post.excerpt || ''}
+                tags={post.tags}
+                readingTime={`${Math.ceil((post.content?.length || 0) / 500)} 分钟`}
+              />
+            </div>
           ))}
           {posts.length === 0 && (
-            <p className="col-span-3 text-center text-muted-foreground py-12">
+            <p className="col-span-3 text-center text-muted-foreground py-16">
               暂无文章，敬请期待！
             </p>
           )}
@@ -52,20 +53,22 @@ export default async function HomePage() {
       </section>
 
       {/* Featured Projects */}
-      <section className="max-w-5xl mx-auto px-4 py-12">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold">精选项目</h2>
-          <Link href="/projects" className="text-sm text-muted-foreground hover:text-foreground">
+          <h2 className="tracking-tight">精选项目</h2>
+          <Link href="/projects" className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium">
             查看全部 &rarr;
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {projects.map(project => (
-            <ProjectCard key={project.id} project={project} />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {projects.map((project, i) => (
+            <div key={project.id} className="animate-fade-in-up" style={{ animationDelay: `${i * 0.08}s` }}>
+              <ProjectCard project={project} />
+            </div>
           ))}
           {projects.length === 0 && (
-            <p className="col-span-3 text-center text-muted-foreground py-12">
-              项目即将上线！
+            <p className="col-span-3 text-center text-muted-foreground py-16">
+              项目即将上线，敬请期待！
             </p>
           )}
         </div>
